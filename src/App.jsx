@@ -1,12 +1,13 @@
-import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<h1>Home</h1>} />
-        <Route path="/profile/:username" element={<h1>Profile</h1>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/profile/:username" element={<Profile />} />
       </Routes>
     </>
   );
