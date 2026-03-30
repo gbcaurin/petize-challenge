@@ -21,6 +21,7 @@ function Profile() {
     async function fetchUserData() {
       try {
         const userData = await user(username);
+        console.log("Fetched user data:", userData);
         if (userData.message === "Not Found") {
           setError("User not found");
           return;
@@ -118,6 +119,20 @@ function Profile() {
           <p>Stars: {repo.stargazers_count}</p>
           <p>Forks: {repo.forks_count}</p>
           <p>Language: {repo.language}</p>
+          {userData.blog && (
+            <a href={userData.blog} target="_blank" rel="noopener noreferrer">
+              Site
+            </a>
+          )}
+          {userData.twitter_username && (
+            <a
+              href={`https://x.com/${userData.twitter_username}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Twitter
+            </a>
+          )}
           <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
             View on GitHub
           </a>
