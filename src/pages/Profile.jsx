@@ -14,6 +14,7 @@ function Profile() {
   const [moreRepos, setMoreRepos] = useState(true);
   const [sort, setSort] = useState("created");
   const [error, setError] = useState(null);
+  const loading = useRef(false);
   const obsRef = useRef();
 
   useEffect(() => {
@@ -40,6 +41,8 @@ function Profile() {
 
   useEffect(() => {
     async function fetchReposData() {
+      if (loading.current) return;
+      loading.current = true;
       try {
         const reposData = await repos(username, page, sort);
         const validate = z.array(repoSchema).safeParse(reposData);
@@ -53,9 +56,10 @@ function Profile() {
         }
       } catch (error) {
         console.error("Error fetching repos data:", error);
+      } finally {
+        loading.current = false;
       }
     }
-
     fetchReposData();
   }, [username, page, sort]);
 
@@ -91,6 +95,22 @@ function Profile() {
       )}
 
       <h2>Repos</h2>
+      <h2>Listar Repositórios por:</h2>
+      <select
+        value={sort}
+        onChange={(e) => {
+          setReposData([]);
+          setPage(1);
+          setMoreRepos(true);
+          setSort(e.target.value);
+        }}
+      >
+        <option value="created">Último Criado</option>
+        <option value="updated">Último Atualizado</option>
+        <option value="pushed">Último Commitado</option>
+        <option value="full_name">Ordem Alfabética</option>
+      </select>
+
       {reposData.map((repo) => (
         <div key={repo.id}>
           <p>Name: {repo.name}</p>
