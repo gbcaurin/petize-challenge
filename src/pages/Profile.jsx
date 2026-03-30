@@ -13,23 +13,28 @@ function Profile() {
   const [page, setPage] = useState(1);
   const [moreRepos, setMoreRepos] = useState(true);
   const [sort, setSort] = useState("created");
+  const [error, setError] = useState(null);
   const obsRef = useRef();
 
   useEffect(() => {
     async function fetchUserData() {
       try {
         const userData = await user(username);
+        if (userData.message === "Not Found") {
+          setError("User not found");
+          return;
+        }
         const validate = userSchema.safeParse(userData);
         if (!validate.success) {
           console.error("Invalid user data:", validate.error);
           return;
         }
+
         setUserData(validate.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     }
-
     fetchUserData();
   }, [username]);
 
@@ -63,6 +68,16 @@ function Profile() {
     observer.observe(obsRef.current);
     return () => observer.disconnect();
   }, [moreRepos]);
+
+  if (error) {
+    return (
+      <div className="profile">
+        <h1>Profile</h1>
+        <p>{error}</p>
+        <button onClick={() => navigate(-1)}>Voltar</button>
+      </div>
+    );
+  }
 
   return (
     <div className="profile">
