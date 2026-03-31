@@ -4,6 +4,7 @@ import { user, repos } from "../services/github.js";
 import { userSchema } from "../schemas/user.js";
 import { repoSchema } from "../schemas/repository.js";
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
 
 function Profile() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ function Profile() {
   const [error, setError] = useState(null);
   const loading = useRef(false);
   const obsRef = useRef();
+  const { t } = useTranslation();
 
   useEffect(() => {
     async function fetchUserData() {
@@ -23,7 +25,7 @@ function Profile() {
         const userData = await user(username);
         console.log("Fetched user data:", userData);
         if (userData.message === "Not Found") {
-          setError("User not found");
+          setError(t("profile.notFound"));
           return;
         }
         const validate = userSchema.safeParse(userData);
@@ -79,24 +81,39 @@ function Profile() {
       <div className="profile">
         <h1>Profile</h1>
         <p>{error}</p>
-        <button onClick={() => navigate(-1)}>Voltar</button>
+        <button onClick={() => navigate(-1)}>{t("profile.back")}</button>
       </div>
     );
   }
 
   return (
     <div className="profile">
-      <h1>Profile</h1>
+      <h1>{t("profile.title")}</h1>
       {userData && (
         <div>
           <p>Login: {userData.login}</p>
           <img src={userData.avatar_url} alt="Avatar" />
           <p>Bio: {userData.bio}</p>
+
+          {userData.blog && (
+            <a href={userData.blog} target="_blank" rel="noopener noreferrer">
+              {t("profile.site")}
+            </a>
+          )}
+          {userData.twitter_username && (
+            <a
+              href={`https://x.com/${userData.twitter_username}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t("profile.twitter")}
+            </a>
+          )}
         </div>
       )}
 
-      <h2>Repos</h2>
-      <h2>Listar Repositórios por:</h2>
+      <h2>{t("profile.repos")}</h2>
+      <h2>{t("profile.sortBy")}</h2>
       <select
         value={sort}
         onChange={(e) => {
@@ -106,40 +123,37 @@ function Profile() {
           setSort(e.target.value);
         }}
       >
-        <option value="created">Último Criado</option>
-        <option value="updated">Último Atualizado</option>
-        <option value="pushed">Último Commitado</option>
-        <option value="full_name">Ordem Alfabética</option>
+        <option value="created">{t("profile.sortCreated")}</option>
+        <option value="updated">{t("profile.sortUpdated")}</option>
+        <option value="pushed">{t("profile.sortPushed")}</option>
+        <option value="full_name">{t("profile.sortFullName")}</option>
       </select>
 
       {reposData.map((repo) => (
         <div key={repo.id}>
-          <p>Name: {repo.name}</p>
-          <p>Description: {repo.description}</p>
-          <p>Stars: {repo.stargazers_count}</p>
-          <p>Forks: {repo.forks_count}</p>
-          <p>Language: {repo.language}</p>
-          {userData.blog && (
-            <a href={userData.blog} target="_blank" rel="noopener noreferrer">
-              Site
-            </a>
-          )}
-          {userData.twitter_username && (
-            <a
-              href={`https://x.com/${userData.twitter_username}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Twitter
-            </a>
-          )}
+          <p>
+            {t("profile.repoName")}: {repo.name}
+          </p>
+          <p>
+            {t("profile.repoDescription")}: {repo.description}
+          </p>
+          <p>
+            {t("profile.repoStars")}: {repo.stargazers_count}
+          </p>
+          <p>
+            {t("profile.repoForks")}: {repo.forks_count}
+          </p>
+          <p>
+            {t("profile.repoLanguage")}: {repo.language}
+          </p>
+
           <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
-            View on GitHub
+            {t("profile.repoLink")}
           </a>
         </div>
       ))}
       <div ref={obsRef} />
-      <button onClick={() => navigate(-1)}>Voltar</button>
+      <button onClick={() => navigate(-1)}>{t("profile.back")}</button>
     </div>
   );
 }

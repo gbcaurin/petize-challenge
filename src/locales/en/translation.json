@@ -1,3 +1,29 @@
 {
-  "hello": "Hello World"
+  "home": {
+    "title": "Home",
+    "placeholder": "Enter GitHub username",
+    "text": "Find anyone's GitHub profile",
+    "button": "Search"
+  },
+  "profile": {
+    "title": "Profile",
+    "login": "Login",
+    "bio": "Bio",
+    "repos": "Repositories",
+    "sortBy": "Sort repositories by",
+    "sortCreated": "Last Created",
+    "sortUpdated": "Last Updated",
+    "sortPushed": "Last Pushed",
+    "sortFullName": "Alphabetical Order",
+    "repoName": "Name",
+    "repoDescription": "Description",
+    "repoStars": "Stars",
+    "repoForks": "Forks",
+    "repoLanguage": "Language",
+    "repoLink": "View on GitHub",
+    "site": "Website",
+    "twitter": "Twitter",
+    "notFound": "No users found with that name",
+    "back": "Back"
+  }
 }
