@@ -32,7 +32,7 @@ function Profile() {
   const loading = useRef(false);
   const obsRef = useRef();
   const { t, i18n } = useTranslation();
-  const [userAgain, setUserAgain] = useState(""); //estado para refazer fetch do usuário ao trocar idioma
+  const [userAgain, setUserAgain] = useState("");
 
   useEffect(() => {
     async function fetchUserData() {
@@ -114,14 +114,14 @@ function Profile() {
 
   return (
     <Box minH="100vh" bgColor="#0d1117" color="#e6edf3">
-      {/*header*/}
+      {/* header */}
       <Flex
         bgColor="#161b22"
         borderBottom="1px solid #30363d"
-        px={8}
+        px={[3, 6, 8]}
         py={4}
         align="center"
-        gap={6}
+        gap={[2, 4, 6]}
       >
         <svg
           height="30"
@@ -129,51 +129,56 @@ function Profile() {
           width="30"
           fill="#e6edf3"
           onClick={() => navigate("/")}
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", flexShrink: 0 }}
         >
           <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
         </svg>
+
         <Select
           position="absolute"
           top={4}
           right={4}
-          width="120px"
+          width={["80px", "120px"]}
           bgColor="#161b22"
           color="#e6edf3"
           borderColor="#30363d"
-          onChange={(e) => i18n.changeLanguage(e.target.value)} //troca idioma ao selecionar
+          onChange={(e) => i18n.changeLanguage(e.target.value)}
           value={i18n.language}
         >
           <option
             value="pt"
-            style={{
-              backgroundColor: "#161b22",
-              color: "#e6edf3",
-            }}
+            style={{ backgroundColor: "#161b22", color: "#e6edf3" }}
           >
             🇧🇷 PT-BR
           </option>
           <option
             value="en"
-            style={{
-              backgroundColor: "#161b22",
-              color: "#e6edf3",
-            }}
+            style={{ backgroundColor: "#161b22", color: "#e6edf3" }}
           >
             🇺🇸 EN
           </option>
         </Select>
+
         <Button
           bgColor="transparent"
           color="#58a6ff"
           _hover={{ bgColor: "#21262d" }}
           onClick={() => navigate(-1)}
+          flexShrink={0}
         >
           ← {t("profile.back")}
         </Button>
-        <Flex align="center" gap={2} ml={4} width={"100%"}>
+
+        {/* input e botão somem no mobile */}
+        <Flex
+          align="center"
+          gap={2}
+          width="100%"
+          justify="center"
+          display={["none", "none", "flex"]}
+        >
           <Input
-            maxW={"500px"}
+            maxW="500px"
             placeholder={t("home.placeholder")}
             value={userAgain}
             onChange={(e) => setUserAgain(e.target.value)}
@@ -184,11 +189,10 @@ function Profile() {
             _focus={{ borderColor: "#58a6ff", boxShadow: "0 0 0 1px #58a6ff" }}
             onKeyDown={(e) =>
               e.key === "Enter" && navigate(`/profile/${userAgain}`)
-            } //ativa busca com Enter
+            }
           />
-
           <Button
-            maxW={"400px"}
+            maxW="400px"
             bgColor="#238636"
             color="#fff"
             _hover={{ bgColor: "#2ea043" }}
@@ -199,16 +203,20 @@ function Profile() {
         </Flex>
       </Flex>
 
-      <Box maxW="1100px" mx="auto" px={8} py={10}>
-        {/*foto com infos*/}
+      <Box maxW="1100px" mx="auto" px={[4, 6, 8]} py={[6, 8, 10]}>
+        {/* perfil */}
         {userData && (
-          <Flex gap={8} mb={10} align="flex-start">
-            {/* Avatar circular */}
+          <Flex
+            gap={8}
+            mb={10}
+            align={["center", "flex-start"]}
+            direction={["column", "row"]}
+          >
             <Image
               src={userData.avatar_url}
               alt={userData.login}
               borderRadius="full"
-              boxSize="150px"
+              boxSize={["100px", "120px", "150px"]}
               border="2px solid #30363d"
             />
 
@@ -218,6 +226,7 @@ function Profile() {
               border="1px solid #30363d"
               borderRadius="md"
               p={6}
+              width={["100%", "auto"]}
             >
               <Link href={`https://github.com/${userData.login}`}>
                 <Heading fontSize="xl" color="#e6edf3">
@@ -231,8 +240,7 @@ function Profile() {
                 </Text>
               )}
 
-              {/* botões (se tiver twitter, site) */}
-              <Flex gap={3} mt={6}>
+              <Flex gap={3} mt={6} flexWrap="wrap">
                 {userData.blog && (
                   <Link href={userData.blog} isExternal>
                     <Button
@@ -267,12 +275,18 @@ function Profile() {
           </Flex>
         )}
 
-        <Flex justify="space-between" align="center" mb={6}>
+        <Flex
+          justify="space-between"
+          align="center"
+          mb={6}
+          flexWrap="wrap"
+          gap={4}
+        >
           <Heading fontSize="lg" color="#e6edf3">
             {t("profile.repos")}
           </Heading>
           <Select
-            width="220px"
+            width={["100%", "220px"]}
             bgColor="#161b22"
             color="#e6edf3"
             borderColor="#30363d"
@@ -300,7 +314,8 @@ function Profile() {
           </Select>
         </Flex>
 
-        <SimpleGrid columns={2} spacing={4}>
+        {/* 1 coluna no mobile, 2 no desktop */}
+        <SimpleGrid columns={[1, 1, 2]} spacing={4}>
           {reposData.map((repo) => (
             <Box
               key={repo.id}
@@ -311,7 +326,6 @@ function Profile() {
               _hover={{ borderColor: "#58a6ff" }}
               transition="border-color 0.2s"
             >
-              {/*nome do repo como link */}
               <Link
                 href={repo.html_url}
                 isExternal
@@ -322,15 +336,13 @@ function Profile() {
                 {repo.name}
               </Link>
 
-              {/* descrição (se existir) */}
               {repo.description && (
                 <Text color="#8b949e" fontSize="sm" mt={2} noOfLines={2}>
                   {repo.description}
                 </Text>
               )}
 
-              {/* estrelas, forks e linguagem utilizada*/}
-              <Flex gap={4} mt={4} align="center">
+              <Flex gap={4} mt={4} align="center" flexWrap="wrap">
                 {repo.language && (
                   <Text color="#8b949e" fontSize="xs">
                     ● {repo.language}
@@ -351,7 +363,6 @@ function Profile() {
           ))}
         </SimpleGrid>
 
-        {/* IntersectionObserver para renderização infinita*/}
         <div ref={obsRef} />
       </Box>
     </Box>
