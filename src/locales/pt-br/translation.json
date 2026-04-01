@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "Home",
+    "title": "Explore. Descubra. Conecte-se.",
     "placeholder": "Digite o nome do usuário do GitHub",
     "text": "Encontre o perfil do GitHub de qualquer pessoa",
     "button": "Pesquisar"
@@ -13,7 +13,7 @@
     "sortBy": "Listar repositórios por",
     "sortCreated": "Último Criado",
     "sortUpdated": "Último Atualizado",
-    "sortPushed": "Último Commitado",
+    "sortPushed": "Último Publicado",
     "sortFullName": "Ordem Alfabética",
     "repoName": "Nome",
     "repoDescription": "Descrição",
@@ -24,6 +24,16 @@
     "site": "Site",
     "twitter": "Twitter",
     "notFound": "Não há usuários com esse nome",
-    "back": "Voltar"
+    "back": "Voltar",
+    "updated": "Atualizado ",
+    "today": "Hoje",
+    "daysAgo": "{{count}} dia atrás",
+    "daysAgoPlural": "{{count}} dias atrás",
+    "weeksAgo": "{{count}} semana atrás",
+    "weeksAgoPlural": "{{count}} semanas atrás",
+    "monthsAgo": "{{count}} mês atrás",
+    "monthsAgoPlural": "{{count}} meses atrás",
+    "yearsAgo": "{{count}} ano atrás",
+    "yearsAgoPlural": "{{count}} anos atrás"
   }
 }

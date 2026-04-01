@@ -1,5 +1,4 @@
 export async function user(username) {
-  console.log(import.meta.env.VITE_GITHUB_TOKEN);
   const response = await fetch(`https://api.github.com/users/${username}`, {
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,

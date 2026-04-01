@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "Home",
+    "title": "Explore. Discover. Connect.",
     "placeholder": "Enter GitHub username",
     "text": "Find anyone's GitHub profile",
     "button": "Search"
@@ -24,6 +24,16 @@
     "site": "Website",
     "twitter": "Twitter",
     "notFound": "No users found with that name",
-    "back": "Back"
+    "back": "Back",
+    "updated": "Updated ",
+    "today": "Today",
+    "daysAgo": "{{count}} day ago",
+    "daysAgoPlural": "{{count}} days ago",
+    "weeksAgo": "{{count}} week ago",
+    "weeksAgoPlural": "{{count}} weeks ago",
+    "monthsAgo": "{{count}} month ago",
+    "monthsAgoPlural": "{{count}} months ago",
+    "yearsAgo": "{{count}} year ago",
+    "yearsAgoPlural": "{{count}} years ago"
   }
 }
