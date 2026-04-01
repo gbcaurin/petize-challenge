@@ -188,7 +188,9 @@ function Profile() {
             _placeholder={{ color: "#8b949e" }}
             _focus={{ borderColor: "#58a6ff", boxShadow: "0 0 0 1px #58a6ff" }}
             onKeyDown={(e) =>
-              e.key === "Enter" && navigate(`/profile/${userAgain}`)
+              e.key === "Enter" &&
+              userAgain.trim() &&
+              navigate(`/profile/${userAgain}`)
             }
           />
           <Button
@@ -196,7 +198,9 @@ function Profile() {
             bgColor="#238636"
             color="#fff"
             _hover={{ bgColor: "#2ea043" }}
-            onClick={() => navigate(`/profile/${userAgain}`)}
+            onClick={() =>
+              userAgain.trim() && navigate(`/profile/${userAgain}`)
+            }
           >
             {t("home.button")}
           </Button>
