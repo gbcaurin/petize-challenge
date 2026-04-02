@@ -18,7 +18,6 @@ import {
   Link,
   Input,
 } from "@chakra-ui/react";
-import Logo from "../assets/favicon_devs_v2.svg";
 
 function Profile() {
   const navigate = useNavigate();

@@ -20,3 +20,16 @@ export async function repos(username, page, sort) {
   const reposData = await response.json();
   return reposData;
 }
+
+export async function autocomplete(query) {
+  const response = await fetch(
+    `https://api.github.com/search/users?q=${query}&per_page=5`,
+    {
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
+      },
+    },
+  );
+  const data = await response.json();
+  return data.items || [];
+}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -9,13 +9,32 @@ import {
   VStack,
   Text,
   Select,
+  Image,
   Box,
 } from "@chakra-ui/react";
+import { autocomplete } from "../services/github";
 
 function Home() {
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (username.trim().length < 2) {
+        setSuggestions([]);
+        setShowSuggestions(false);
+      } else {
+        autocomplete(username).then((results) => {
+          setSuggestions(results);
+          setShowSuggestions(true);
+        });
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [username]);
 
   return (
     <Flex width="100vw" height="100vh" position="relative">
@@ -66,7 +85,7 @@ function Home() {
         </Text>
       </Flex>
 
-      {/* lado direito — full width no mobile, 50% no desktop */}
+      {/* lado direito — full no mobile, 50% no desktop */}
       <Flex
         width={["100%", "100%", "50%"]}
         height="100%"
@@ -84,21 +103,53 @@ function Home() {
             {t("home.text")}
           </Heading>
 
-          <Input
-            placeholder={t("home.placeholder")}
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            bgColor="#0d1117"
-            color="#e6edf3"
-            borderColor="#30363d"
-            _placeholder={{ color: "#8b949e" }}
-            _focus={{ borderColor: "#58a6ff", boxShadow: "0 0 0 1px #58a6ff" }}
-            onKeyDown={(e) =>
-              e.key === "Enter" &&
-              username.trim() &&
-              navigate(`/profile/${username}`)
-            }
-          />
+          <Box position="relative" width="100%">
+            <Input
+              placeholder={t("home.placeholder")}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              bgColor="#0d1117"
+              color="#e6edf3"
+              borderColor="#30363d"
+              _placeholder={{ color: "#8b949e" }}
+              _focus={{
+                borderColor: "#58a6ff",
+                boxShadow: "0 0 0 1px #58a6ff",
+              }}
+              onKeyDown={(e) =>
+                e.key === "Enter" &&
+                username.trim() &&
+                navigate(`/profile/${username}`)
+              }
+            />
+            <Box position="absolute" top="100%" width="100%" zIndex={10}>
+              {suggestions.map((user) => (
+                <Flex
+                  key={user.login}
+                  p={2}
+                  bgColor="#161b22"
+                  color="#e6edf3"
+                  _hover={{ bgColor: "#2d333b" }}
+                  onClick={() => {
+                    setUsername(user.login);
+                    setShowSuggestions(false);
+                    navigate(`/profile/${user.login}`);
+                  }}
+                  align="center"
+                  gap={2}
+                  cursor="pointer"
+                >
+                  <Image
+                    src={user.avatar_url}
+                    alt={user.login}
+                    boxSize="24px"
+                    borderRadius="full"
+                  />
+                  <Text>{user.login}</Text>
+                </Flex>
+              ))}
+            </Box>
+          </Box>
 
           <Button
             width="100%"
