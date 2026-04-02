@@ -1,30 +1,30 @@
-# 🔍 Petize Challenge — GitHub Profile Search
+# Petize Challenge — GitHub Profile Search
 
-Aplicação React desenvolvida como desafio técnico para a vaga de Estágio Desenvolvedor(a) React na [Petize](https://petize.com.br/).
+Aplicação React desenvolvida como desafio técnico para a vaga de Estágio Desenvolvedor(a) React na [Petize](https://www.petize.com.br/).
 
-## 🚀 Deploy
+## Deploy
 
 [petize-challenge-xi.vercel.app](https://petize-challenge-xi.vercel.app/)
 
-## 📋 Sobre o Desafio
+## Sobre o Desafio
 
 Construir uma aplicação React que busque perfis de desenvolvedores na API pública do GitHub e exiba seus repositórios com scroll infinito.
 
-## ✨ Funcionalidades
+## Funcionalidades
 
-- 🔎 Busca de usuários pelo username do GitHub
-- 💡 Autocomplete de usuários em tempo real com debounce
-- 👤 Página de perfil com avatar, bio, seguidores e repositórios
-- ♾️ Scroll infinito nos repositórios (10 por página)
-- 🔃 Ordenação de repositórios por: último criado, último atualizado, último push e ordem alfabética
-- 🔗 Links diretos para os repositórios no GitHub
-- 🌐 Botão de site pessoal (exibido apenas se o usuário tiver)
-- 🐦 Botão do Twitter/X (exibido apenas se o usuário tiver)
-- 🕐 Tempo relativo de atualização dos repositórios
-- 🌍 Internacionalização em Português e Inglês (i18n)
-- 📱 Layout responsivo para desktop e mobile
+- Busca de usuários pelo username do GitHub
+- Autocomplete de usuários em tempo real com debounce
+- Página de perfil com avatar, bio, seguidores e repositórios
+- Scroll infinito nos repositórios (10 por página)
+- Ordenação de repositórios por: último criado, último atualizado, último push e ordem alfabética
+- Links diretos para os repositórios no GitHub
+- Botão de site pessoal (exibido apenas se o usuário tiver)
+- Botão do Twitter/X (exibido apenas se o usuário tiver)
+- Tempo relativo de atualização dos repositórios
+- Internacionalização em Português e Inglês (i18n)
+- Layout responsivo para desktop e mobile
 
-## 🛠️ Tecnologias
+## Tecnologias
 
 | Tecnologia | Uso |
 |---|---|
@@ -34,10 +34,9 @@ Construir uma aplicação React que busque perfis de desenvolvedores na API púb
 | i18Next + react-i18next | Internacionalização |
 | Zod | Validação e modelagem de dados |
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 ```
 src/
-├── components/       # Componentes reutilizáveis
 ├── pages/            # Páginas da aplicação
 │   ├── Home.jsx      # Página de busca
 │   └── Profile.jsx   # Página de perfil
@@ -55,7 +54,7 @@ src/
         └── translation.json
 ```
 
-## 🔗 Rotas
+## Rotas
 
 | Rota | Descrição |
 |---|---|
@@ -64,9 +63,9 @@ src/
 
 A rota `/profile/:username` pode ser compartilhada diretamente como link.
 
-## ⚙️ Como Rodar Localmente
+## Como Rodar Localmente
 
-**Pré-requisitos:** Node.js instalado
+Pré-requisitos: Node.js instalado
 
 **1. Clone o repositório**
 ```bash
@@ -93,7 +92,7 @@ VITE_GITHUB_TOKEN=seu_token_aqui
 npm run dev
 ```
 
-## 🏗️ Decisões Técnicas
+## Decisões Técnicas
 
 **Tema GitHub** — O visual foi inspirado no próprio GitHub, já que a aplicação consome a API deles. Uma decisão criativa que faz sentido do ponto de vista de produto.
 
@@ -105,6 +104,6 @@ npm run dev
 
 **Zod com safeParse** — Utilizado `safeParse` em vez de `parse` para evitar que erros de validação quebrem a aplicação, tratando os erros de forma controlada.
 
-## 👨‍💻 Desenvolvido por
+## Desenvolvido por
 
 Gabriel Caurin de Souza — [github.com/gbcaurin](https://github.com/gbcaurin)
